@@ -35,6 +35,18 @@
           }
         }
       }
+    },
+    "/osystems/allOsystem": {
+      "get": {
+        "tags": [
+          "Osystem"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {

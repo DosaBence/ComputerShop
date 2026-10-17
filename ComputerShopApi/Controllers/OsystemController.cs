@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ComputerShopApi.Controllers
 {
+
+    //ORM-el egyszerűbben történik a végpontok közötti lekérdezés, mint sima sql statement-el
     [Route("osystems")]
     [ApiController]
     public class OsystemController : ControllerBase
@@ -31,6 +33,20 @@ namespace ComputerShopApi.Controllers
                 return StatusCode(201, new {message = "Sikeres felvétel", result = osystem });
             }
             return StatusCode(400, new { message = "Sikertelen felvétel", result = osystem });
+        }
+
+
+        [HttpGet("allOsystem")]
+        public object AllOsystem()
+        {
+            var osystems = context.Osystems.ToList();
+
+            if(osystems.Count > 0) 
+            {
+                return StatusCode(200, new { message = "Sikeres lekérdezés", result = osystems });
+            }
+            return StatusCode(404, new { message = "Üres tábla.", result = osystems });
+
         }
     }
 }
