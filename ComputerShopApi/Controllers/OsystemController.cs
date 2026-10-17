@@ -30,7 +30,7 @@ namespace ComputerShopApi.Controllers
                 context.Osystems.Add(osystem);
                 context.SaveChanges();
 
-                return StatusCode(201, new {message = "Sikeres felvétel", result = osystem });
+                return StatusCode(200, new {message = "Sikeres felvétel", result = osystem });
             }
             return StatusCode(400, new { message = "Sikertelen felvétel", result = osystem });
         }
@@ -46,6 +46,20 @@ namespace ComputerShopApi.Controllers
                 return StatusCode(200, new { message = "Sikeres lekérdezés", result = osystems });
             }
             return StatusCode(404, new { message = "Üres tábla.", result = osystems });
+
+        }
+
+        [HttpGet("osystemById")]
+        public object OsystemById([FromQuery] Guid id)
+        {
+            var osystem = context.Osystems.SingleOrDefault(o => o.Id ==id);
+
+            if (osystem != null)
+            {
+                return StatusCode(200, new { message = "Sikeres lekérdezés", result = osystem });
+
+            }
+            return StatusCode(404, new { message = "Nincs ilyen Id-vel Osystem.", result = osystem });
 
         }
     }
