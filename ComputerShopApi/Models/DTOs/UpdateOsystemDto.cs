@@ -1,0 +1,11 @@
+﻿namespace ComputerShopApi.Models.DTOs
+{
+    public class UpdateOsystemDto
+    {
+        public string Name { get; set; }
+        public int Version { get; set; }
+
+        public DateTime UpdateTime { get; set; }
+
+    }
+}

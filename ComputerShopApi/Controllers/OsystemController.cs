@@ -2,6 +2,7 @@
 using ComputerShopApi.Models.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace ComputerShopApi.Controllers
 {
@@ -60,6 +61,45 @@ namespace ComputerShopApi.Controllers
 
             }
             return StatusCode(404, new { message = "Nincs ilyen Id-vel Osystem.", result = osystem });
+
+        }
+
+
+        //mikor kell fromquery és mikor frombody?
+        [HttpPut("updateOsystem")]
+        public object UpdateOsystem([FromQuery] Guid id, [FromBody] UpdateOsystemDto updateOsystemDto)
+        {
+            var osystem = context.Osystems.Find(id);
+
+            if (osystem != null)
+            {
+                osystem.Name = updateOsystemDto.Name;
+                osystem.Version = updateOsystemDto.Version;
+                osystem.UpdateTime = DateTime.Now;
+
+                context.Osystems.Update(osystem);
+                context.SaveChanges();
+
+                return StatusCode(200, new { message = "Sikeres frissítés", result = osystem });
+            }
+            return StatusCode(404, new { message = "Nincs ilyen Id-vel osystem.", result = osystem });
+        }
+
+
+        [HttpDelete ("deleteOsystem")]
+
+        public object DeleteOsystem([FromQuery] Guid id)
+        {
+            var osystem = context.Osystems.FirstOrDefault(o =>o.Id==id);
+            if (osystem != null)
+            {
+                context.Osystems.Remove(osystem);
+                context.SaveChanges();
+
+                return StatusCode(200, new { message = "Sikeres törlés"});
+
+            }
+            return StatusCode(404, new { message = "Nincs ilyen Id-vel Osystem."});
 
         }
     }
