@@ -1,0 +1,18 @@
+[
+  {
+    "ContainingType": "ComputerShopApi.Controllers.OsystemController",
+    "Method": "AddnewOsystem",
+    "RelativePath": "osystems/newOsystem",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "addNewOsystemDto",
+        "Type": "ComputerShopApi.Models.DTOs.AddNewOsystemDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
